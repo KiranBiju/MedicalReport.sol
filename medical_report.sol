@@ -11,7 +11,7 @@ contract MedicalReport {
     mapping(string => Report[]) private reports;
 
     function addReport(string memory id, string memory symptoms, string memory assumptions, string memory prescription) public {
-        require(bytes(id).length > 0, "Invalid patient ID");
+        require(bytes(id).length > 0, "Invalid UserId");
         require(bytes(symptoms).length > 0, "Symptoms cannot be empty");
         require(bytes(assumptions).length > 0, "Assumptions cannot be empty");
         require(bytes(prescription).length > 0, "Prescription cannot be empty");
@@ -19,14 +19,14 @@ contract MedicalReport {
         reports[id].push(newReport);
     }
 
-    function getReports(string memory id) public view returns (string[] memory symptoms, string[] memory assumptions, string[] memory prescription) {
-        require(bytes(id).length > 0, "Invalid patient ID");
-        uint256 reportCount = reports[id].length;
+    function getReports(string memory UserId) public view returns (string[] memory symptoms, string[] memory assumptions, string[] memory prescription) {
+        require(bytes(UserId).length > 0, "Invalid UserId");
+        uint256 reportCount = reports[UserId].length;
         symptoms = new string[](reportCount);
         assumptions = new string[](reportCount);
         prescription = new string[](reportCount);
         for (uint256 i = 0; i < reportCount; i++) {
-            Report storage report = reports[id][i];
+            Report storage report = reports[UserId][i];
             symptoms[i] = report.symptoms;
             assumptions[i] = report.assumptions;
             prescription[i] = report.prescription;
